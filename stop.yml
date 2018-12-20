@@ -1,0 +1,93 @@
+---
+- hosts: "{{env}}-*"
+  remote_user: root
+  tasks:
+    - name: stop pgpool service, if not stopped
+      service:
+        name: pgpool-II-96
+        state: stopped
+      when: inventory_hostname in groups[ '{{env}}-pgpool' ]
+
+    - name: stop postgres service, if not stopped
+      service:
+        name: postgresql-9.6
+        state: stopped
+      when: inventory_hostname in groups[ '{{env}}-postgres' ]
+
+    - name: stop cassandra service, if not stopped
+      service:
+         name: cassandra
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-cassandra']
+
+    - name: stop zookeeper service, if not stopped
+      service:
+         name: confluent-zookeeper
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-zookeeper']
+
+    - name: stop kafka service, if not stopped
+      service:
+         name: confluent-kafka
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-kafka']
+
+    - name: stop redis service, if not stopped
+      service:
+         name: redis
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-redis']
+
+    - name: stop sentinel service, if not stopped
+      service:
+         name: sentinel
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-redis']
+
+    - name: stop stunnel service, if not stopped
+      service:
+         name: stunnel
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-redis']
+
+    - name: stop elasticsearch service, if not stopped
+      service:
+         name: elasticsearch
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-elasticsearch']
+
+    - name: stop logstash service, if not stopped
+      service:
+         name: td-agent
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-logstash']
+
+    - name: stop kibana service, if not stopped
+      service:
+         name: kibana
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-kibana']
+
+    - name: stop prometheus service, if not stopped
+      service:
+        name: prometheus
+        state: stopped
+      when: inventory_hostname in groups['{{env}}-prometheus']
+
+    - name: stop grafana prometheus service, if not stopped
+      service:
+         name: grafana
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-prometheus']
+
+    - name: stop prometheus alertmanager service, if not stopped
+      service:
+         name: alertmanager
+         state: stopped
+      when: inventory_hostname in groups['{{env}}-prometheus']
+
+    - name: stop node_exporter service, if not stopped
+      service:
+        name: node_exporter
+        state: stopped
+
