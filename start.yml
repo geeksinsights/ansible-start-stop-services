@@ -1,0 +1,92 @@
+---
+- hosts: "{{env}}-*"
+  remote_user: root
+  tasks:
+    - name: start pgpool service, if not started
+      service: 
+        name: pgpool-II-96
+        state: started
+      when: inventory_hostname in groups[ '{{env}}-pgpool' ]
+ 
+    - name: start postgres service, if not started
+      service:
+        name: postgresql-9.6
+        state: started
+      when: inventory_hostname in groups[ '{{env}}-postgres' ]
+ 
+    - name: start cassandra service, if not started
+      service: 
+         name: cassandra
+         state: started
+      when: inventory_hostname in groups['{{env}}-cassandra']
+ 
+    - name: start zookeeper service, if not started
+      service: 
+         name: confluent-zookeeper
+         state: started
+      when: inventory_hostname in groups['{{env}}-zookeeper']
+ 
+    - name: start kafka service, if not started
+      service: 
+         name: confluent-kafka
+         state: started
+      when: inventory_hostname in groups['{{env}}-kafka']
+
+    - name: start redis service, if not started
+      service: 
+         name: redis
+         state: started
+      when: inventory_hostname in groups['{{env}}-redis']
+
+    - name: start sentinel service, if not started
+      service: 
+         name: sentinel
+         state: started
+      when: inventory_hostname in groups['{{env}}-redis'] 
+
+    - name: start stunnel service, if not started
+      service: 
+         name: stunnel
+         state: started
+      when: inventory_hostname in groups['{{env}}-redis']
+
+    - name: start elasticsearch service, if not started
+      service: 
+         name: elasticsearch
+         state: started
+      when: inventory_hostname in groups['{{env}}-elasticsearch']
+  
+    - name: start logstash service, if not started
+      service: 
+         name: td-agent
+         state: started
+      when: inventory_hostname in groups['{{env}}-logstash']
+
+    - name: start kibana service, if not started
+      service: 
+         name: kibana
+         state: started
+      when: inventory_hostname in groups['{{env}}-kibana']
+   
+    - name: start prometheus service, if not started
+      service: 
+        name: prometheus
+        state: started
+      when: inventory_hostname in groups['{{env}}-prometheus']
+
+    - name: start grafana prometheus service, if not started
+      service: 
+         name: grafana
+         state: started
+      when: inventory_hostname in groups['{{env}}-prometheus']
+
+    - name: start prometheus alertmanager service, if not started
+      service: 
+         name: alertmanager
+         state: started
+      when: inventory_hostname in groups['{{env}}-prometheus']
+
+    - name: start node_exporter service, if not started
+      service: 
+        name: node_exporter
+        state: started
