@@ -22,5 +22,10 @@ Running Playbook
 
 - Modify Hosts files according to your need
 
-- Run playbook
+- Run playbook for entire dev hosts for all services Pgpool, postgres, cassandra, prometheus, cassandra, redis, sentinel, stunnel, kafka, zookeeper etc
   Ex: ansible-play-book stop.yml -i hosts --extra-vars "env=dev"
+  
+- Run playbook for dev but only one technology
+  Ex: ansible-play-book start.yml -i hosts --extra-vars "env=dev, tech=cassandra"
+  
+
